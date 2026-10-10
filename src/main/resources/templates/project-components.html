@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Project Components - ProjectHub ECE</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+
+        <a class="navbar-brand" href="/dashboard">
+            ProjectHub ECE
+        </a>
+
+        <a href="/logout" class="btn btn-outline-light">
+            Logout
+        </a>
+
+    </div>
+</nav>
+
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>Project Components</h2>
+
+        <a th:href="@{/projects/{id}(id=${projectId})}"
+           class="btn btn-secondary">
+            Back to Project
+        </a>
+
+    </div>
+
+
+    <!-- Add Component -->
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-body">
+
+            <h5 class="card-title mb-3">
+                Add Component
+            </h5>
+
+            <form action="/projects/components/add"
+                  method="post">
+
+                <input type="hidden"
+                       name="projectId"
+                       th:value="${projectId}">
+
+                <div class="row align-items-end">
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Component
+                        </label>
+
+                        <select name="componentId"
+                                class="form-select"
+                                required>
+
+                            <option value="">
+                                -- Select Component --
+                            </option>
+
+                            <option th:each="component : ${components}"
+                                    th:value="${component.id}"
+                                    th:text="${component.name}">
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <label class="form-label">
+                            Quantity
+                        </label>
+
+                        <input type="number"
+                               name="quantity"
+                               class="form-control"
+                               min="1"
+                               value="1"
+                               required>
+
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <button type="submit"
+                                class="btn btn-primary w-100">
+                            Add Component
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- Current Components -->
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <h5 class="card-title mb-3">
+                Components Used in Project
+            </h5>
+
+
+            <div th:if="${#lists.isEmpty(projectComponents)}"
+                 class="alert alert-info">
+
+                No components have been added yet.
+
+            </div>
+
+
+            <table th:if="${!#lists.isEmpty(projectComponents)}"
+                   class="table table-bordered">
+
+                <thead class="table-dark">
+
+                <tr>
+                    <th>Component Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                <tr th:each="pc : ${projectComponents}">
+
+                    <td th:text="${pc.componentName}">
+                        Component Name
+                    </td>
+
+                    <td th:text="${pc.category}">
+                        Category
+                    </td>
+
+                    <td th:text="${pc.quantity}">
+                        1
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
