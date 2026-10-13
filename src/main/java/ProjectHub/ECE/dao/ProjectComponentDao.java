@@ -1,3 +1,4 @@
+
 package ProjectHub.ECE.dao;
 
 import java.util.List;
@@ -55,7 +56,6 @@ public class ProjectComponentDao {
             pc.setProjectId(rs.getInt("project_id"));
             pc.setComponentId(rs.getInt("component_id"));
             pc.setQuantity(rs.getInt("quantity"));
-
             pc.setComponentName(rs.getString("name"));
             pc.setCategory(rs.getString("category"));
 
@@ -72,5 +72,15 @@ public class ProjectComponentDao {
                 """;
 
         jdbcTemplate.update(sql, projectId);
+    }
+
+    public int deleteById(int id) {
+
+        String sql = """
+                DELETE FROM project_components
+                WHERE id = ?
+                """;
+
+        return jdbcTemplate.update(sql, id);
     }
 }

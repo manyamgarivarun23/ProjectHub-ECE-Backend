@@ -1,3 +1,4 @@
+
 package ProjectHub.ECE.service;
 
 import java.util.List;
@@ -12,19 +13,26 @@ public class ProjectComponentService {
 
     private final ProjectComponentDao projectComponentDao;
 
-    public ProjectComponentService(ProjectComponentDao projectComponentDao) {
+    public ProjectComponentService(
+            ProjectComponentDao projectComponentDao) {
         this.projectComponentDao = projectComponentDao;
     }
 
-    public void addProjectComponent(ProjectComponent projectComponent) {
+    public void addProjectComponent(
+            ProjectComponent projectComponent) {
         projectComponentDao.save(projectComponent);
     }
 
-    public List<ProjectComponent> getComponentsByProjectId(int projectId) {
+    public List<ProjectComponent> getComponentsByProjectId(
+            int projectId) {
         return projectComponentDao.findByProjectId(projectId);
     }
 
     public void removeComponents(int projectId) {
         projectComponentDao.deleteByProjectId(projectId);
+    }
+
+    public boolean removeProjectComponent(int id) {
+        return projectComponentDao.deleteById(id) > 0;
     }
 }
